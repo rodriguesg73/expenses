@@ -1,9 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatelessWidget {
-  TransactionForm({super.key});
   final titleController = TextEditingController();
   final valueController = TextEditingController();
+
+  final void Function(String, double) onSubmit;
+
+  TransactionForm(this.onSubmit, {super.key});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -28,7 +34,12 @@ class TransactionForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: null,
+                  onPressed: () {
+                    final title = titleController.text;
+                    final value = double.tryParse(valueController.text) ?? 0;
+
+                    onSubmit(title, value);
+                  },
                   style: TextButton.styleFrom(
                     disabledForegroundColor: Colors.deepPurple.shade600,
                   ),
