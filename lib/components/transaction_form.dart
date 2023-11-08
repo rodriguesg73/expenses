@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 
@@ -39,6 +39,9 @@ class _TransactionFormState extends State<TransactionForm> {
               onSubmitted: (_) => _onSubmitForm(),
               decoration: InputDecoration(
                 labelText: 'Título',
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
             TextField(
@@ -47,15 +50,21 @@ class _TransactionFormState extends State<TransactionForm> {
               onSubmitted: (_) => _onSubmitForm(),
               decoration: InputDecoration(
                 labelText: 'Valor (R\$)',
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
+                OutlinedButton(
                   onPressed: _onSubmitForm,
-                  style: TextButton.styleFrom(
-                    disabledForegroundColor: Colors.deepPurple.shade600,
+                  style: OutlinedButton.styleFrom(
+                    disabledForegroundColor:
+                        Theme.of(context).colorScheme.primary,
+                    side: BorderSide(
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                   child: Text('Nova Transação'),
                 ),

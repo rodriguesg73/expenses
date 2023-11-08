@@ -21,12 +21,12 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(
-          primary: Colors.deepPurple.shade600,
-          secondary: Colors.amber,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.deepPurple,
+          accentColor: Colors.amber,
         ),
         textTheme: theme.textTheme.copyWith(
-          headline6: TextStyle(
+          titleLarge: TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -46,6 +46,8 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -108,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               child: Card(
-                color: Colors.teal.shade300,
+                color: Theme.of(context).colorScheme.secondary,
                 elevation: 10,
                 child: Text('Gráfico'),
               ),
