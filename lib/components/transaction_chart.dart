@@ -32,7 +32,7 @@ class TransactionChart extends StatelessWidget {
         'day': DateFormat.E().format(weekDay)[0],
         'value': totalSum,
       };
-    });
+    }).reversed.toList();
   }
 
   double get _weekTotalValue {
@@ -47,14 +47,22 @@ class TransactionChart extends StatelessWidget {
     return Card(
       elevation: 10,
       margin: EdgeInsets.all(10),
-      child: Row(
-        children: groupedTransactions.map((tr) {
-          return TransactionChartBar(
-            label: tr['day'].toString(),
-            value: (tr['value'] as double),
-            percentage: (tr['value'] as double) / _weekTotalValue,
-          );
-        }).toList(),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactions.map((tr) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: TransactionChartBar(
+                  label: tr['day'].toString(),
+                  value: (tr['value'] as double),
+                  percentage: _weekTotalValue == 0
+                      ? 0
+                      : (tr['value'] as double) / _weekTotalValue),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
