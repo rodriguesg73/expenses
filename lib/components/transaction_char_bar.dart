@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 
@@ -15,48 +15,55 @@ class TransactionChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 20,
-          child: FittedBox(
-            child: Text(value.toStringAsFixed(2)),
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Column(
+        children: <Widget>[
+          Container(
+            height: constraints.maxHeight * 0.15,
+            child: FittedBox(
+              child: Text(value.toStringAsFixed(2)),
+            ),
           ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          height: 60,
-          width: 10,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1),
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              FractionallySizedBox(
-                heightFactor: percentage,
-                child: Container(
+          SizedBox(
+            height: constraints.maxHeight * 0.05,
+          ),
+          Container(
+            height: constraints.maxHeight * 0.6,
+            width: 10,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 1),
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Colors.grey.shade300,
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
-              ),
-            ],
+                FractionallySizedBox(
+                  heightFactor: percentage,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1),
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Text(label)
-      ],
-    );
+          SizedBox(
+            height: constraints.maxHeight * 0.05,
+          ),
+          Container(
+            height: constraints.maxHeight * 0.15,
+            child: FittedBox(
+              child: Text(label),
+            ),
+          )
+        ],
+      );
+    });
   }
 }

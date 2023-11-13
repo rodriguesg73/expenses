@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, unused_field, unnecessary_null_comparison, cast_from_null_always_fails
 
+import 'package:expenses/components/adaptative_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -49,11 +50,14 @@ class _TransactionFormState extends State<TransactionForm> {
     return Card(
       elevation: 5,
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             TextField(
               controller: _titleController,
+              autofocus: true,
               onSubmitted: (_) => _onSubmitForm(),
               decoration: InputDecoration(
                 labelText: 'Título',
@@ -93,18 +97,7 @@ class _TransactionFormState extends State<TransactionForm> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(
-                  onPressed: _onSubmitForm,
-                  style: OutlinedButton.styleFrom(
-                    disabledForegroundColor:
-                        Theme.of(context).colorScheme.primary,
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  child: Text('Nova Transação'),
-                ),
-              ],
+              children: [AdaptativeButton('Nova Transação', _onSubmitForm)],
             ),
           ],
         ),
